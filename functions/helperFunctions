@@ -1,0 +1,50 @@
+/**
+ * Generates a random integer between `min` and `max` inclusive.
+ *
+ * @param {number} min - The minimum value for the generated integer.
+ * @param {number} max - The maximum value for the generated integer.
+ * @returns {number} A random integer between `min` and `max`.
+ */
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+/**
+ * Rounds a number to two decimal places.
+ *
+ * @param {number} num - The number to be rounded.
+ * @returns {number} The number rounded to two decimal places.
+ */
+function roundToTwoDecimals(num) {
+    return +num.toFixed(2);
+}
+
+/**
+ * Selects a random operation from the provided operations array.
+ * Ensures that the same operation is not selected more than twice.
+ *
+ * @param {Array<string>} operations - An array of string operations (e.g., ["+", "-", "*", "/"]).
+ * @param {Object} usedOps - An object that tracks the count of each operation used.
+ * @returns {string} A randomly selected operation.
+ */
+function getRandomOperation(operations, usedOps) {
+    let operation;
+    do {
+        operation = operations[getRandomInt(0, operations.length - 1)];
+    } while (usedOps[operation] && usedOps[operation] >= 2);
+
+    if (usedOps[operation]) {
+        usedOps[operation]++;
+    } else {
+        usedOps[operation] = 1;
+    }
+
+    return operation;
+}
+
+// Export the functions to make them available for other modules.
+module.exports = {
+    getRandomInt,
+    roundToTwoDecimals,
+    getRandomOperation
+}
